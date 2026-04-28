@@ -1,1 +1,55 @@
-    
+    body{
+    font-family: Arial;
+    background: #111;
+    color: white;
+    text-align: center;
+    margin: 0;
+}
+
+h1{
+    color: rgb(255, 255, 255);
+    margin-top: 20px;
+}
+
+nav{
+    margin: 10px;
+}
+
+nav a{
+    color: white;
+    margin: 10px;
+    text-decoration: none;
+}
+
+form{
+    margin: 20px;
+}
+
+input{
+    padding: 10px;
+    margin: 5px;
+}
+
+button{
+    padding: 10px;
+    background: rgb(255, 255, 255);
+    border: none;
+    cursor: pointer;
+}
+
+ul{
+    list-style: none;
+    padding: 0;
+}
+
+li{
+    background: #222;
+    margin: 10px auto;
+    padding: 10px;
+    width: 200px;
+}
+
+a{
+    color: red;
+    text-decoration: none;
+}
