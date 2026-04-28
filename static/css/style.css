@@ -1,4 +1,4 @@
-    body{
+body {
     font-family: Arial;
     background: #111;
     color: white;
@@ -6,50 +6,49 @@
     margin: 0;
 }
 
-h1{
-    color: rgb(255, 255, 255);
+h1 {
     margin-top: 20px;
 }
 
-nav{
+nav {
     margin: 10px;
 }
 
-nav a{
+nav a {
     color: white;
     margin: 10px;
     text-decoration: none;
 }
 
-form{
+form {
     margin: 20px;
 }
 
-input{
+input {
     padding: 10px;
     margin: 5px;
 }
 
-button{
+button {
     padding: 10px;
-    background: rgb(255, 255, 255);
+    background: white;
     border: none;
     cursor: pointer;
 }
 
-ul{
+ul {
     list-style: none;
     padding: 0;
 }
 
-li{
+li {
     background: #222;
     margin: 10px auto;
     padding: 10px;
     width: 200px;
 }
 
-a{
+a {
     color: red;
     text-decoration: none;
 }
