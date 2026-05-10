@@ -8,7 +8,6 @@ body {
     color: #111827;
 }
 
-/* CARD CONTAINER */
 .container {
     width: 360px;
     margin: 80px auto;
@@ -19,20 +18,17 @@ body {
     text-align: center;
 }
 
-/* TITLE */
 h1, h2 {
     color: #6D28D9;
     margin-bottom: 20px;
 }
 
-/* FORM LAYOUT */
 form {
     display: flex;
     flex-direction: column;
     gap: 12px;
 }
 
-/* INPUTS */
 input {
     padding: 12px;
     border: 1px solid #E5E7EB;
@@ -46,7 +42,6 @@ input:focus {
     box-shadow: 0 0 0 3px rgba(109, 40, 217, 0.15);
 }
 
-/* BUTTON */
 button {
     padding: 12px;
     background: #6D28D9;
@@ -62,7 +57,6 @@ button:hover {
     background: #5B21B6;
 }
 
-/* LINKS */
 a {
     display: inline-block;
     margin-top: 10px;
@@ -75,7 +69,6 @@ a:hover {
     text-decoration: underline;
 }
 
-/* TASK LIST */
 ul {
     list-style: none;
     padding: 0;
@@ -92,7 +85,85 @@ li {
     align-items: center;
 }
 
-/* DONE STYLE */
 strike {
     color: #9CA3AF;
+}
+
+.edit-container {
+    width: 360px;
+    margin: 80px auto;
+    background: white;
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    text-align: center;
+}
+
+.edit-container h2 {
+    color: #6D28D9;
+    margin-bottom: 20px;
+}
+
+.edit-container input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #E5E7EB;
+    border-radius: 10px;
+    outline: none;
+    margin-bottom: 15px;
+    transition: 0.2s;
+}
+
+.edit-container input:focus {
+    border-color: #6D28D9;
+    box-shadow: 0 0 0 3px rgba(109, 40, 217, 0.15);
+}
+
+.edit-container button {
+    width: 100%;
+    padding: 12px;
+    background: #6D28D9;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.edit-container button:hover {
+    background: #5B21B6;
+}
+
+.edit-container a {
+    display: inline-block;
+    margin-top: 12px;
+    color: #6D28D9;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.edit-container a:hover {
+    text-decoration: underline;
+}
+
+.flash-container {
+    margin-bottom: 15px;
+}
+
+.flash {
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.flash.success {
+    background: #DCFCE7;
+    color: #166534;
+}
+
+.flash.error {
+    background: #FEE2E2;
+    color: #991B1B;
 }
