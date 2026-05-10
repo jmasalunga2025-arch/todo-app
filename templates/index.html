@@ -1,26 +1,35 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>To-Do App</title>
+    <title>To-Do List</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
+
 <body>
 
-<h1>To-Do List</h1>
+<div class="container">
+    <h2>To-Do List</h2>
 
-<form action="/add" method="POST">
-    <input type="text" name="task" required>
-    <button type="submit">Add</button>
-</form>
+    <form action="/add" method="POST">
+        <input name="task" placeholder="New task" required>
+        <button type="submit">Add</button>
+    </form>
 
-<ul>
-    {% for task in tasks %}
+    <ul>
+        {% for task in tasks %}
         <li>
-            {{ task }}
-            <a href="/delete/{{ loop.index0 }}">Delete</a>
+            {% if task[3] %}
+                <strike>{{ task[2] }}</strike>
+            {% else %}
+                {{ task[2] }}
+            {% endif %}
+
+            <a href="/done/{{ task[0] }}">Done</a>
+            <a href="/delete/{{ task[0] }}">Delete</a>
         </li>
-    {% endfor %}
-</ul>
+        {% endfor %}
+    </ul>
+</div>
 
 </body>
 </html>

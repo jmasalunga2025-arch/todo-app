@@ -1,54 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
 body {
-    font-family: Arial;
-    background: #111;
-    color: white;
-    text-align: center;
+    font-family: 'Inter', sans-serif;
+    background: #F5F3FF;
     margin: 0;
+    padding: 0;
+    color: #111827;
 }
 
-h1 {
-    margin-top: 20px;
-}
-
-nav {
-    margin: 10px;
-}
-
-nav a {
-    color: white;
-    margin: 10px;
-    text-decoration: none;
-}
-
-form {
-    margin: 20px;
-}
-
-input {
-    padding: 10px;
-    margin: 5px;
-}
-
-button {
-    padding: 10px;
+/* CARD CONTAINER */
+.container {
+    width: 360px;
+    margin: 80px auto;
     background: white;
-    border: none;
-    cursor: pointer;
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    text-align: center;
 }
 
+/* TITLE */
+h1, h2 {
+    color: #6D28D9;
+    margin-bottom: 20px;
+}
+
+/* FORM LAYOUT */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* INPUTS */
+input {
+    padding: 12px;
+    border: 1px solid #E5E7EB;
+    border-radius: 10px;
+    outline: none;
+    transition: 0.2s;
+}
+
+input:focus {
+    border-color: #6D28D9;
+    box-shadow: 0 0 0 3px rgba(109, 40, 217, 0.15);
+}
+
+/* BUTTON */
+button {
+    padding: 12px;
+    background: #6D28D9;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+button:hover {
+    background: #5B21B6;
+}
+
+/* LINKS */
+a {
+    display: inline-block;
+    margin-top: 10px;
+    color: #6D28D9;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* TASK LIST */
 ul {
     list-style: none;
     padding: 0;
+    margin-top: 20px;
 }
 
 li {
-    background: #222;
-    margin: 10px auto;
+    background: #F9FAFB;
+    margin: 10px 0;
     padding: 10px;
-    width: 200px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-a {
-    color: red;
-    text-decoration: none;
+/* DONE STYLE */
+strike {
+    color: #9CA3AF;
 }
