@@ -1,13 +1,11 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 import sqlite3
 from functools import wraps
-import os
 
 app = Flask(__name__)
 app.secret_key = "carabao_secret_key_2024"
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DB = os.path.join(BASE_DIR, "db", "database.db")
+DB = "tasks.db"
 
 def get_db():
     conn = sqlite3.connect(DB)
@@ -223,4 +221,4 @@ def delete(task_id):
 
 if __name__ == "__main__":
     init_db()
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run(debug=True)

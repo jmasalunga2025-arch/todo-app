@@ -1,21 +1,60 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Task</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
 
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class="flash-container">
+      {% for category, message in messages %}
+        <p class="flash {{ category }}">{{ message }}</p>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
 <div class="edit-container">
-    <h2>Edit Task</h2>
+
+    <div class="theme-switch">
+        <input type="checkbox" id="darkToggle" onclick="toggleDarkMode()">
+        <label for="darkToggle" class="switch">
+            <span class="icon light">☀️</span>
+            <span class="icon dark">🌙</span>
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <h2>✏️ Edit Task</h2>
 
     <form method="POST">
-        <input type="text" name="task" value="{{ task[2] }}" required>
-        <button type="submit">Update</button>
+        <input name="task" value="{{ task[2] }}" required placeholder="Update your task...">
+        <button type="submit">Save Changes</button>
     </form>
 
-    <a href="/home">Back</a>
+    <a href="/home">← Back to Home</a>
+
 </div>
+
+<script>
+function toggleDarkMode() {
+    document.body.classList.toggle("dark-mode");
+    const toggle = document.getElementById("darkToggle");
+    localStorage.setItem("dark", toggle.checked ? "on" : "off");
+}
+
+window.onload = function () {
+    const toggle = document.getElementById("darkToggle");
+    if (localStorage.getItem("dark") === "on") {
+        document.body.classList.add("dark-mode");
+        toggle.checked = true;
+    }
+}
+</script>
 
 </body>
 </html>

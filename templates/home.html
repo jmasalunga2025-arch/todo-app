@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>To-Do List</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-container">
+          {% for category, message in messages %}
+            <p class="flash {{ category }}">{{ message }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+<div class="container">
+
+<div class="top-bar">
+
+    <div class="nav-links">
+        <a href="/home">Home</a>
+        <a href="/about">About</a>
+    </div>
+
+    <div class="right-side">
+
+        <div class="theme-switch">
+            <input type="checkbox" id="darkToggle" onclick="toggleDarkMode()">
+            <label for="darkToggle" class="switch">
+                <span class="icon light">☀️</span>
+                <span class="icon dark">🌙</span>
+                <span class="slider"></span>
+            </label>
+        </div>
+
+        <div class="datetime-widget">
+            <span class="dt-time" id="dtTime">--:--:--</span>
+            <span class="dt-date" id="dtDate">---</span>
+        </div>
+
+    </div>
+
+</div>
+
+        <h1 class="welcome">Welcome, {{ user }} 👋</h1>
+
+        <div class="carabao-guide">
+            <svg class="carabao-svg" width="60" height="54" viewBox="0 0 90 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <ellipse cx="45" cy="52" rx="26" ry="18" fill="#7C3AED" opacity="0.85"/>
+                <ellipse cx="63" cy="38" rx="14" ry="12" fill="#7C3AED" opacity="0.85"/>
+                <path d="M55 28 Q50 16 44 18 Q48 22 53 26" fill="#5B21B6" stroke="#5B21B6" stroke-width="1"/>
+                <path d="M68 27 Q72 15 78 17 Q74 22 70 26" fill="#5B21B6" stroke="#5B21B6" stroke-width="1"/>
+                <ellipse cx="74" cy="43" rx="7" ry="5" fill="#A78BFA"/>
+                <circle cx="72" cy="43" r="1.2" fill="#5B21B6"/>
+                <circle cx="76" cy="43" r="1.2" fill="#5B21B6"/>
+                <circle cx="64" cy="34" r="2.5" fill="white"/>
+                <circle cx="64.8" cy="34" r="1.2" fill="#1E1333"/>
+                <ellipse cx="55" cy="31" rx="4" ry="5" fill="#A78BFA" transform="rotate(-15 55 31)"/>
+                <rect x="28" y="66" width="7" height="13" rx="3" fill="#5B21B6"/>
+                <rect x="39" y="68" width="7" height="11" rx="3" fill="#5B21B6"/>
+                <rect x="50" y="68" width="7" height="11" rx="3" fill="#5B21B6"/>
+                <rect x="59" y="66" width="7" height="13" rx="3" fill="#5B21B6"/>
+                <path d="M20 48 Q10 44 11 38 Q12 32 18 34" stroke="#A78BFA" stroke-width="3" fill="none" stroke-linecap="round"/>
+            </svg>
+            <div class="carabao-message">
+                <span id="carabaoText"></span><span class="typewriter-cursor"></span>
+            </div>
+        </div>
+
+        <h2 class="title">To-Do List</h2>
+
+        <div class="filter-buttons">
+            <a href="/home?filter=active" class="{{ 'active-filter' if current_filter == 'active' else '' }}">🟡 Active</a>
+            <a href="/home?filter=done" class="{{ 'active-filter' if current_filter == 'done' else '' }}">🟢 Done</a>
+            <a href="/home" class="{{ 'active-filter' if current_filter == 'all' else '' }}">⚪ All</a>
+        </div>
+
+        <form action="/add" method="POST">
+            <input name="task" placeholder="New task" required>
+            <button type="submit">Add</button>
+        </form>
+
+        {% if tasks|length == 0 %}
+            <p class="empty-task">No tasks yet. Add your first task!</p>
+        {% endif %}
+
+        <ul>
+            {% for task in tasks %}
+            <li>
+                <span>
+                    {% if task[3] %}
+                        <strike>{{ task[2] }}</strike>
+                    {% else %}
+                        {{ task[2] }}
+                    {% endif %}
+                </span>
+                <div class="task-actions">
+                    <a href="/done/{{ task[0] }}">Done</a>
+                    <a href="/edit/{{ task[0] }}">Edit</a>
+                    <a href="/delete/{{ task[0] }}" onclick="return confirm('Delete this task?')">Delete</a>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+
+        <a href="/logout" class="logout-btn">🚪 Logout</a>
+    </div>
+
+</div>
+
+<script>
+
+function toggleDarkMode() {
+    document.body.classList.toggle("dark-mode");
+    const toggle = document.getElementById("darkToggle");
+    localStorage.setItem("dark", toggle.checked ? "on" : "off");
+}
+
+function updateDateTime() {
+    const now = new Date();
+    const timeEl = document.getElementById("dtTime");
+    const dateEl = document.getElementById("dtDate");
+    if (!timeEl || !dateEl) return;
+
+    const h = String(now.getHours()).padStart(2, '0');
+    const m = String(now.getMinutes()).padStart(2, '0');
+    const s = String(now.getSeconds()).padStart(2, '0');
+    timeEl.textContent = `${h}:${m}:${s}`;
+
+    const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    dateEl.textContent = `${days[now.getDay()]}, ${months[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()}`;
+}
+
+const userName = "{{ user }}";
+const messages = [
+    `Gawin mo na, ${userName}! 💪`,
+    "Kaya mo 'yan! Isa-isa lang.",
+    "Focus lang, kaya natin 'to! 🔥",
+    `Ikaw na, ${userName}! Go na!`,
+    "Huwag susuko, halos tapos na! ✨",
+    `Proud ako sa'yo, ${userName}! 🐃`,
+    "Todo na, konti na lang!"
+];
+
+let msgIndex = 0;
+let charIndex = 0;
+let isDeleting = false;
+let typeTimer;
+
+function typeWriter() {
+    const el = document.getElementById("carabaoText");
+    if (!el) return;
+
+    const currentMsg = messages[msgIndex];
+
+    if (!isDeleting) {
+        el.textContent = currentMsg.slice(0, charIndex + 1);
+        charIndex++;
+        if (charIndex === currentMsg.length) {
+            isDeleting = true;
+            typeTimer = setTimeout(typeWriter, 2400);
+            return;
+        }
+        typeTimer = setTimeout(typeWriter, 60);
+    } else {
+        el.textContent = currentMsg.slice(0, charIndex - 1);
+        charIndex--;
+        if (charIndex === 0) {
+            isDeleting = false;
+            msgIndex = (msgIndex + 1) % messages.length;
+            typeTimer = setTimeout(typeWriter, 400);
+            return;
+        }
+        typeTimer = setTimeout(typeWriter, 30);
+    }
+}
+
+window.onload = function () {
+    const toggle = document.getElementById("darkToggle");
+    if (localStorage.getItem("dark") === "on") {
+        document.body.classList.add("dark-mode");
+        toggle.checked = true;
+    }
+    updateDateTime();
+    setInterval(updateDateTime, 1000);
+    setTimeout(typeWriter, 600);
+}
+</script>
+
+</body>
+</html>

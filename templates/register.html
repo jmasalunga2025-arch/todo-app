@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
-
 <body>
 
 {% with messages = get_flashed_messages(with_categories=true) %}
@@ -18,16 +19,83 @@
 {% endwith %}
 
 <div class="container">
+
+    <div class="theme-switch">
+        <input type="checkbox" id="darkToggle" onclick="toggleDarkMode()">
+        <label for="darkToggle" class="switch">
+            <span class="icon light">☀️</span>
+            <span class="icon dark">🌙</span>
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <!-- Carabao idle animation -->
+    <div class="carabao-login">
+        <svg class="carabao-svg" width="90" height="80" viewBox="0 0 90 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="45" cy="52" rx="26" ry="18" fill="#7C3AED" opacity="0.85"/>
+            <ellipse cx="63" cy="38" rx="14" ry="12" fill="#7C3AED" opacity="0.85"/>
+            <path d="M55 28 Q50 16 44 18 Q48 22 53 26" fill="#5B21B6" stroke="#5B21B6" stroke-width="1"/>
+            <path d="M68 27 Q72 15 78 17 Q74 22 70 26" fill="#5B21B6" stroke="#5B21B6" stroke-width="1"/>
+            <ellipse cx="74" cy="43" rx="7" ry="5" fill="#A78BFA"/>
+            <circle cx="72" cy="43" r="1.2" fill="#5B21B6"/>
+            <circle cx="76" cy="43" r="1.2" fill="#5B21B6"/>
+            <circle cx="64" cy="34" r="2.5" fill="white"/>
+            <circle cx="64.8" cy="34" r="1.2" fill="#1E1333"/>
+            <ellipse cx="55" cy="31" rx="4" ry="5" fill="#A78BFA" transform="rotate(-15 55 31)"/>
+            <rect x="28" y="66" width="7" height="13" rx="3" fill="#5B21B6"/>
+            <rect x="39" y="68" width="7" height="11" rx="3" fill="#5B21B6"/>
+            <rect x="50" y="68" width="7" height="11" rx="3" fill="#5B21B6"/>
+            <rect x="59" y="66" width="7" height="13" rx="3" fill="#5B21B6"/>
+            <path d="M20 48 Q10 44 11 38 Q12 32 18 34" stroke="#A78BFA" stroke-width="3" fill="none" stroke-linecap="round"/>
+        </svg>
+        <p style="font-size:12px;color:var(--text-muted);font-weight:500;margin:0;">Gumawa ng account! 🐃</p>
+    </div>
+
     <h2>Register</h2>
 
     <form method="POST">
-        <input name="username" placeholder="Username" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <button type="submit">Register</button>
+        <input name="username" placeholder="Username" required autocomplete="username">
+        <div class="password-container">
+            <input type="password" name="password" id="regPassword" placeholder="Password" required autocomplete="new-password">
+            <span class="toggle-password" onclick="togglePw('regPassword', this)">👁️</span>
+        </div>
+        <div class="password-container">
+            <input type="password" name="confirm_password" id="regConfirm" placeholder="Confirm Password" required autocomplete="new-password">
+            <span class="toggle-password" onclick="togglePw('regConfirm', this)">👁️</span>
+        </div>
+        <button type="submit">Create Account</button>
     </form>
 
-    <a href="/">Back to Login</a>
+    <a href="/">Already have an account? Login</a>
+
 </div>
+
+<script>
+function toggleDarkMode() {
+    document.body.classList.toggle("dark-mode");
+    const toggle = document.getElementById("darkToggle");
+    localStorage.setItem("dark", toggle.checked ? "on" : "off");
+}
+
+function togglePw(fieldId, icon) {
+    const field = document.getElementById(fieldId);
+    if (field.type === "password") {
+        field.type = "text";
+        icon.textContent = "🙈";
+    } else {
+        field.type = "password";
+        icon.textContent = "👁️";
+    }
+}
+
+window.onload = function () {
+    const toggle = document.getElementById("darkToggle");
+    if (localStorage.getItem("dark") === "on") {
+        document.body.classList.add("dark-mode");
+        toggle.checked = true;
+    }
+}
+</script>
 
 </body>
 </html>
