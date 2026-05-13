@@ -714,3 +714,146 @@ strike {
     gap: 6px;
   }
 }
+.stats-container {
+  display: flex;
+  gap: 10px;
+  margin: 15px 0 18px;
+}
+
+.stat-card {
+  flex: 1;
+  padding: 12px;
+  border-radius: var(--radius-md);
+  text-align: center;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+}
+
+.stat-card h3 {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.stat-card p {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.stat-card.total p {
+  color: var(--brand);
+}
+
+.stat-card.completed p {
+  color: var(--green);
+}
+
+.stat-card.pending p {
+  color: var(--amber);
+}
+.task-actions a {
+  padding: 5px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  border: 1px solid var(--border);
+  margin-left: 5px;
+}
+
+.task-actions a[href*="done"] {
+  background: var(--green-bg);
+  color: var(--green);
+  border-color: rgba(16,185,129,0.3);
+}
+
+.task-actions a[href*="done"]:hover {
+  background: var(--green);
+  color: white;
+  transform: translateY(-1px);
+}
+
+.task-actions a[href*="edit"] {
+  background: #fef9c3;
+  color: #a16207;
+  border-color: #facc15;
+}
+
+body.dark-mode .task-actions a[href*="edit"] {
+  background: rgba(250, 204, 21, 0.15);
+  color: #fde047;
+  border-color: rgba(250, 204, 21, 0.4);
+}
+
+.task-actions a[href*="edit"]:hover {
+  background: #facc15;
+  color: #1e1333;
+  transform: translateY(-1px);
+}
+
+.task-actions a:nth-child(3) {
+  background: rgba(239, 68, 68, 0.12);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.25);
+}
+
+.task-actions a:nth-child(3):hover {
+  background: rgba(239, 68, 68, 0.22);
+  color: #ef4444;
+  border-color: rgba(239, 68, 68, 0.4);
+  box-shadow: 0 2px 8px rgba(239,68,68,0.15);
+}
+
+.task-actions a[href*="delete"] {
+  background: var(--red-bg);
+  color: var(--red);
+  border-color: rgba(239,68,68,0.3);
+}
+
+.task-actions a[href*="delete"]:hover {
+  background: var(--red);
+  color: white;
+  transform: translateY(-1px);
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal-content {
+  background: var(--surface);
+  padding: 20px;
+  border-radius: var(--radius-lg);
+  text-align: center;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.cancel-btn {
+  padding: 8px 12px;
+  border: none;
+}
+
+.delete-btn {
+  padding: 8px 12px;
+  background: var(--red);
+  color: white;
+  text-decoration: none;
+}

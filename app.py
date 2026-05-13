@@ -115,16 +115,19 @@ def home():
     user_id = session["user_id"]
 
     with get_db() as conn:
+
         if filter_type == "active":
             tasks = conn.execute(
                 "SELECT * FROM tasks WHERE user_id = ? AND done = 0",
                 (user_id,)
             ).fetchall()
+
         elif filter_type == "done":
             tasks = conn.execute(
                 "SELECT * FROM tasks WHERE user_id = ? AND done = 1",
                 (user_id,)
             ).fetchall()
+
         else:
             filter_type = "all"
             tasks = conn.execute(
@@ -132,16 +135,24 @@ def home():
                 (user_id,)
             ).fetchall()
 
-    return render_template("home.html",
-                           user=session["username"],
-                           tasks=tasks,
-                           current_filter=filter_type)
+        all_tasks = conn.execute(
+            "SELECT done FROM tasks WHERE user_id = ?",
+            (user_id,)
+        ).fetchall()
 
+    total_tasks = len(all_tasks)
+    completed_tasks = sum(1 for t in all_tasks if t["done"] == 1)
+    pending_tasks = total_tasks - completed_tasks
 
-@app.route("/about")
-@login_required
-def about():
-    return render_template("about.html")
+    return render_template(
+        "home.html",
+        user=session["username"],
+        tasks=tasks,
+        current_filter=filter_type,
+        total=total_tasks,
+        completed=completed_tasks,
+        pending=pending_tasks
+    )
 
 
 @app.route("/add", methods=["POST"])

@@ -74,6 +74,24 @@
         </div>
 
         <h2 class="title">To-Do List</h2>
+        <div class="stats-container">
+
+        <div class="stat-card total">
+        <h3>Total</h3>
+        <p>{{ total }}</p>
+        </div>
+
+        <div class="stat-card completed">
+        <h3>Completed</h3>
+        <p>{{ completed }}</p>
+        </div>
+  
+        <div class="stat-card pending">
+        <h3>Pending</h3>
+        <p>{{ pending }}</p>
+        </div>
+
+    </div>
 
         <div class="filter-buttons">
             <a href="/home?filter=active" class="{{ 'active-filter' if current_filter == 'active' else '' }}">🟡 Active</a>
@@ -103,7 +121,7 @@
                 <div class="task-actions">
                     <a href="/done/{{ task[0] }}">Done</a>
                     <a href="/edit/{{ task[0] }}">Edit</a>
-                    <a href="/delete/{{ task[0] }}" onclick="return confirm('Delete this task?')">Delete</a>
+                    <a href="#" data-id="{{ task[0] }}" onclick="openDeleteModal(this)">Delete</a>
                 </div>
             </li>
             {% endfor %}
@@ -112,6 +130,18 @@
         <a href="/logout" class="logout-btn">🚪 Logout</a>
     </div>
 
+</div>
+
+<div id="deleteModal" class="modal">
+  <div class="modal-content">
+    <h3>Delete Task?</h3>
+    <p>This action cannot be undone.</p>
+
+    <div class="modal-actions">
+      <button class="cancel-btn" onclick="closeDeleteModal()">Cancel</button>
+      <a id="confirmDeleteBtn" class="delete-btn" href="#">Delete</a>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -192,7 +222,43 @@ window.onload = function () {
     setInterval(updateDateTime, 1000);
     setTimeout(typeWriter, 600);
 }
+function openDeleteModal(element) {
+    const taskId = element.getAttribute("data-id");
+
+    const modal = document.getElementById("deleteModal");
+    const btn = document.getElementById("confirmDeleteBtn");
+
+    btn.href = "/delete/" + taskId;
+    modal.style.display = "flex";
+}
+
+function closeDeleteModal() {
+    document.getElementById("deleteModal").style.display = "none";
+}
+
+window.onclick = function(event) {
+    const modal = document.getElementById("deleteModal");
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+}
+
+setTimeout(() => {
+    const flashes = document.querySelectorAll(".flash");
+
+    flashes.forEach(flash => {
+        flash.style.transition = "opacity 0.5s ease, transform 0.5s ease";
+        flash.style.opacity = "0";
+        flash.style.transform = "translateY(-10px)";
+
+        setTimeout(() => {
+            flash.remove();
+        }, 500);
+    });
+
+}, 3000);
 </script>
+<script src="{{ url_for('static', filename='js/flash.js') }}"></script>
 
 </body>
 </html>
