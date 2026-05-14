@@ -7,7 +7,7 @@ app = Flask(__name__)
 app.secret_key = "carabao_secret_key_2024"
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DB = os.path.join(BASE_DIR, "db", "database.db")
+DB = os.path.join(BASE_DIR, "db", "task.db")
 
 def get_db():
     conn = sqlite3.connect(DB)
@@ -154,6 +154,10 @@ def home():
         pending=pending_tasks
     )
 
+@app.route("/about")
+@login_required
+def about():
+    return render_template("about.html")
 
 @app.route("/add", methods=["POST"])
 @login_required
