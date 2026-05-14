@@ -20,7 +20,7 @@
 ## Project Structure
 - app.py
 - db/
-  - database.db
+  - task.db
 - templates/
   - login.html
   - register.html
